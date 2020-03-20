@@ -12,7 +12,6 @@ Rails.application.routes.draw do
     resources :lessons_schedules, only: [ :create, :update ]
   end
 
-
   resources :lessons_schedules, only: [ :destroy ]
 
   resources :lessons, only: [ :show, :edit, :update, :destroy ] do
@@ -33,15 +32,19 @@ Rails.application.routes.draw do
 
   resources :semesters, only: [ :new, :create, :edit, :update]
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations'
-  }
+  # devise_for :users, controllers: {
+  #   sessions: 'users/sessions',
+  #   registrations: 'users/registrations'
+  # }
 
-  devise_for :students, controllers: { 
-    sessions: 'students/sessions',
-    registrations: 'students/registrations' 
-  } 
+  # devise_for :students, controllers: { 
+  #   sessions: 'students/sessions',
+  #   registrations: 'students/registrations' 
+  # } 
+
+  devise_for :students
+  devise_for :users
+
 
   root to: 'pages#home'
 

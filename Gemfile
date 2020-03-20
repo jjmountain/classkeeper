@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'pundit'
 gem 'jquery-datatables'
+gem 'simple_form'
+
 
 
 # Reduces boot times through caching; required in config/boot.rb

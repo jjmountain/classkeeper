@@ -1,13 +1,11 @@
 class CourseSchedule < ApplicationRecord
   belongs_to :course
-
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :course_periods_exist
   validate :end_date_after_start_date, unless: Proc.new { |a| a.start_date.blank? || a.end_date.blank? }
   validate :course_period_on_end_date, unless: Proc.new { |a| a.end_date.blank? }
   validate :course_period_on_start_date, unless: Proc.new { |a| a.start_date.blank? }
-
   
   def end_date_after_start_date
     if end_date <= start_date

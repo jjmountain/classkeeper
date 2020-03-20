@@ -2,7 +2,7 @@
 
   <% path_to_display = member_signed_in? ? pages_dashboard_path : root_path %>
   
-  <%= link_to path_to_display, class: 'navbar-brand d-none d-sm-block' do %><span style="color: darkgoldenrod;"><i class="fas fa-book" style="transform: rotate(-20deg);"></i></span><span class="logo-text">Classkeeper</span><% end %>
+  <%= link_to path_to_display, class: 'navbar-brand d-none d-sm-block' do %><span style="color: darkgoldenrod;"><i class="fas fa-book" style="transform: rotate(-20deg);"></i></span><span class="logo-text ml-2">Classkeeper</span><% end %>
   
   <% if user_signed_in? || student_signed_in? %>
   <div class="d-flex justify-content-between w-100">
@@ -87,27 +87,9 @@
   </ul>
     </div>
   <% else %>
-  <div class='dropleft'>
-  <div class="dropdown" style='position: fixed; right: 1.8rem; top: 0.8rem;'>
-    <button class="btn sb-btn-transparent-dark " id="dropdownFadeIn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log In</button>
-    <div class="dropdown-menu animated--fade-in border" aria-labelledby="dropdownFadeIn" style='min-width: 8rem;'>
-      <%= link_to new_student_session_path, class: "dropdown-item d-flex justify-content-between" do %>
-        <div class="sb-dropdown-icon-item ">
-          <i class="fas fa-user-graduate"></i>
-        </div>Student
-        <% end %>
-        <%= link_to new_user_session_path, class: "dropdown-item d-flex justify-content-between" do %>
-        <div class="sb-dropdown-icon-item">
-        <i class="fas fa-chalkboard-teacher"></i>
-        </div>Teacher
-        <% end %>
-        <div class="dropdown-divider"></div>
-        <%= link_to new_user_session_path, class: "dropdown-item d-flex justify-content-between" do %>
-        Sign Up
-        <% end %>
-    </div>
-</div>
-</div>
+
+
+<%= link_to new_student_session_path, class: 'float-right' do %> <button class='btn btn-outline-primary' style='position: fixed; right: 1.8rem; top: 0.8rem;'>Log In </button><% end %>
 
   <% end %>
 </nav>
