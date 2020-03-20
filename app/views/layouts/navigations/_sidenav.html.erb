@@ -1,0 +1,22 @@
+  <div id="layoutSidenav_nav">
+    <nav class="sb-sidenav sb-shadow-right sb-sidenav-light">
+      <div class="sb-sidenav-menu">
+          <div class="nav accordion" id="accordionSidenav">
+              <div class="sb-sidenav-menu-heading">
+                Home
+              </div>
+              <%= link_to pages_dashboard_path, class: 'nav-link' do %>
+                <div class="sb-nav-link-icon">
+                  <i data-feather="activity"></i>
+                </div>
+                  Dashboard
+              <% end %>
+              <% if user_signed_in? %>
+                <%= render 'layouts/navigations/user_sidenav' %>
+              <% elsif student_signed_in? %>
+                <%= render 'layouts/navigations/student_sidenav' %>
+              <% end %>
+          </div>
+      </div>
+    </nav>
+  </div>

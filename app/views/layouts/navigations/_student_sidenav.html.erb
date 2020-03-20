@@ -1,0 +1,19 @@
+  <div class="sb-sidenav-menu-heading">Courses</div>
+  <% current_student.courses.each do |course| %>
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts-<%= course.id %>" aria-expanded="false" aria-controls="collapseLayouts">
+          <% icon = course.class_type == 'speaking' ? 'message-square' : 'pen-tool'  %>
+          <div class="sb-nav-link-icon">
+            <i data-feather=<%= icon %>></i>
+          </div>
+          <%= course.name %>
+          <div class="sb-sidenav-collapse-arrow">
+            <i class="fas fa-angle-down"></i>
+          </div>
+    </a>
+    <div class="collapse" id="collapseLayouts-<%= course.id %>" data-parent="#accordionSidenav">
+      <nav class="sb-sidenav-menu-nested nav accordion" id="accordionSidenavLayout">
+          <%= link_to "Lessons", course_lessons_path(course), class: 'nav-link' %>
+          <a class="nav-link" href="layout-static.html">Grades</a>
+      </nav>
+    </div>
+  <% end %>

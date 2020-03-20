@@ -1,0 +1,41 @@
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :given_name,
+                      required: true,
+                      autofocus: true %>
+        <%= f.input :family_name,
+                      required: true,
+                      autofocus: true %>
+        <%= f.input :photo %>
+        <%# <%= f.input :photo_cache, as: :hidden %>
+        <% if local_assigns[:student] %>
+        <%= f.input :gender,
+                      required: true,
+                      autofocus: true,
+                      collection: [['female', 'Female'], ['male', 'Male'], ['non-binary', 'Non-binary']], label_method: :second, value_method: :first,
+                      as: :radio_buttons,
+                      error: 'Please select a gender'
+                      %>
+          <%= f.input :student_number,
+                        required: true,
+                        autofocus: true %>
+        <% end %>              
+        <%= f.input :email,
+                    required: true,
+                    autofocus: true,
+                    input_html: { autocomplete: "email" }%>
+        <%= f.input :password,
+                    required: true,
+                    hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                    input_html: { autocomplete: "new-password" } %>
+        <%= f.input :password_confirmation,
+                    required: true,
+                    input_html: { autocomplete: "new-password" } %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Sign up", class: 'btn btn-primary' %>
+      </div>
+    <% end %>

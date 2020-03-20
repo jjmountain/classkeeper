@@ -4,12 +4,26 @@
     <title>Classkeeper</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.24.1/feather.min.js" crossorigin="anonymous"></script>
+     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet" />
+     <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;display=swap" rel="stylesheet" />
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
-  <body>
-    <%= yield %>
-  </body>
+   <% body_class = member_signed_in? ? 'sb-nav-fixed' : '' %> 
+    <body class=<%= body_class %>>
+        <%= render 'layouts/navigations/top_navbar' %>
+        <%= render 'shared/flashes' unless member_signed_in? %>
+        <div id="layoutSidenav">
+          <%= render 'layouts/navigations/sidenav' if member_signed_in? %>
+          <div id="layoutSidenav_content">
+            <%= render 'shared/flashes' if member_signed_in? %>
+            <%= yield %>
+          <%= render 'layouts/footer' %>
+          </div>
+        </div>
+    </body>
 </html>

@@ -1,0 +1,114 @@
+<nav class="sb-topnav navbar navbar-expand shadow navbar-light bg-white" id="sidenavAccordion">
+
+  <% path_to_display = member_signed_in? ? pages_dashboard_path : root_path %>
+  
+  <%= link_to path_to_display, class: 'navbar-brand d-none d-sm-block' do %><span style="color: darkgoldenrod;"><i class="fas fa-book" style="transform: rotate(-20deg);"></i></span><span class="logo-text">Classkeeper</span><% end %>
+  
+  <% if user_signed_in? || student_signed_in? %>
+  <div class="d-flex justify-content-between w-100">
+  <button class="btn sb-btn-icon sb-btn-transparent-dark order-1 order-lg-0 mr-lg-2" id="sidebarToggle" href="#"><i data-feather="menu"></i></button>
+
+<ul class="navbar-nav align-items-center">
+      <li class="nav-item dropdown no-caret mr-3 sb-dropdown-notifications">
+          <a class="btn sb-btn-icon sb-btn-transparent-dark dropdown-toggle" id="navbarDropdownAlerts" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="bell"></i></a>
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownAlerts">
+              <h6 class="dropdown-header sb-dropdown-notifications-header"><i class="mr-2" data-feather="bell"></i>Alerts Center</h6>
+              <a class="dropdown-item sb-dropdown-notifications-item" href="javascript:void(0);"
+                  ><div class="sb-dropdown-notifications-item-icon bg-warning"><i data-feather="activity"></i></div>
+                  <div class="sb-dropdown-notifications-item-content">
+                      <div class="sb-dropdown-notifications-item-content-details">December 29, 2019</div>
+                      <div class="sb-dropdown-notifications-item-content-text">This is an alert message. It's nothing serious, but it requires your attention.</div>
+                  </div></a
+              ><a class="dropdown-item sb-dropdown-notifications-item" href="javascript:void(0);"
+                  ><div class="sb-dropdown-notifications-item-icon bg-info"><i data-feather="bar-chart"></i></div>
+                  <div class="sb-dropdown-notifications-item-content">
+                      <div class="sb-dropdown-notifications-item-content-details">December 22, 2019</div>
+                      <div class="sb-dropdown-notifications-item-content-text">A new monthly report is ready. Click here to view!</div>
+                  </div></a
+              ><a class="dropdown-item sb-dropdown-notifications-item" href="javascript:void(0);"
+                  ><div class="sb-dropdown-notifications-item-icon bg-danger"><i class="fas fa-exclamation-triangle"></i></div>
+                  <div class="sb-dropdown-notifications-item-content">
+                      <div class="sb-dropdown-notifications-item-content-details">December 8, 2019</div>
+                      <div class="sb-dropdown-notifications-item-content-text">Critical system failure, systems shutting down.</div>
+                  </div></a
+              ><a class="dropdown-item sb-dropdown-notifications-item" href="javascript:void(0);"
+                  ><div class="sb-dropdown-notifications-item-icon bg-success"><i data-feather="user-plus"></i></div>
+                  <div class="sb-dropdown-notifications-item-content">
+                      <div class="sb-dropdown-notifications-item-content-details">December 2, 2019</div>
+                      <div class="sb-dropdown-notifications-item-content-text">New user request. Woody has requested access to the organization.</div>
+                  </div></a
+              ><a class="dropdown-item sb-dropdown-notifications-footer" href="javascript:void(0);">View All Alerts</a>
+          </div>
+      </li>
+
+      <li class="nav-item dropdown no-caret mr-3 sb-dropdown-notifications">
+          <a class="btn sb-btn-icon sb-btn-transparent-dark dropdown-toggle" id="navbarDropdownMessages" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="mail"></i></a>
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownMessages">
+              <h6 class="dropdown-header sb-dropdown-notifications-header"><i class="mr-2" data-feather="mail"></i>Message Center</h6>
+              <a class="dropdown-item sb-dropdown-notifications-item" href="javascript:void(0);"
+                  ><img class="sb-dropdown-notifications-item-img" src="https://source.unsplash.com/vTL_qy03D1I/60x60" />
+                  <div class="sb-dropdown-notifications-item-content">
+                      <div class="sb-dropdown-notifications-item-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                      <div class="sb-dropdown-notifications-item-content-details">Emily Fowler · 58m</div>
+                  </div></a
+              ><a class="dropdown-item sb-dropdown-notifications-item" href="javascript:void(0);"
+                  ><img class="sb-dropdown-notifications-item-img" src="https://source.unsplash.com/4ytMf8MgJlY/60x60" />
+                  <div class="sb-dropdown-notifications-item-content">
+                      <div class="sb-dropdown-notifications-item-content-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                      <div class="sb-dropdown-notifications-item-content-details">Diane Chambers · 2d</div>
+                  </div></a
+              ><a class="dropdown-item sb-dropdown-notifications-footer" href="javascript:void(0);">Read All Messages</a>
+          </div>
+      </li>
+      <li class="nav-item dropdown no-caret mr-3 sb-dropdown-user">
+          <a class="btn sb-btn-icon sb-btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <% if current_member.photo.attached? %>
+            <%= cl_image_tag(current_member.photo.key, width: 40, :gravity=>"face", :default_image=> 'default_avatar.png') %></a>
+          <% else %>
+            <%= cl_image_tag('default_avatar.png', width: 40, :gravity=>"face") %></a>
+          <% end %>
+          <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
+              <h6 class="dropdown-header d-flex align-items-center">
+                  <div class="sb-dropdown-user-details">
+                      <div class="sb-dropdown-user-details-name"><%= current_member.full_name %></div>
+                      <div class="sb-dropdown-user-details-email"><%=  %></div>
+                  </div>
+              </h6>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="javascript:void(0);"
+                  ><div class="sb-dropdown-item-icon"><i data-feather="settings"></i></div>
+                  Account</a
+              >
+                  <%= link_to destroy_user_session_path, class: 'dropdown-item', method: :delete do %><div class="sb-dropdown-item-icon"><i data-feather="log-out"></i></div>
+                  Logout <% end %>
+          </div>
+      </li>
+
+  </ul>
+    </div>
+  <% else %>
+  <div class='dropleft'>
+  <div class="dropdown" style='position: fixed; right: 1.8rem; top: 0.8rem;'>
+    <button class="btn sb-btn-transparent-dark " id="dropdownFadeIn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Log In</button>
+    <div class="dropdown-menu animated--fade-in border" aria-labelledby="dropdownFadeIn" style='min-width: 8rem;'>
+      <%= link_to new_student_session_path, class: "dropdown-item d-flex justify-content-between" do %>
+        <div class="sb-dropdown-icon-item ">
+          <i class="fas fa-user-graduate"></i>
+        </div>Student
+        <% end %>
+        <%= link_to new_user_session_path, class: "dropdown-item d-flex justify-content-between" do %>
+        <div class="sb-dropdown-icon-item">
+        <i class="fas fa-chalkboard-teacher"></i>
+        </div>Teacher
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to new_user_session_path, class: "dropdown-item d-flex justify-content-between" do %>
+        Sign Up
+        <% end %>
+    </div>
+</div>
+</div>
+
+  <% end %>
+</nav>
+

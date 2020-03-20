@@ -1,0 +1,40 @@
+  <div class="sb-sidenav-menu-heading">
+    Courses
+      <%= link_to new_course_path do %><span class="sb-nav-link-icon sb-btn-transparent- float-right">
+          <i data-feather="plus-square"></i>
+      </span>
+      <% end %>
+  </div>
+  
+  <% unless current_user.schools.empty? %>
+    
+    <% current_user.schools.each_with_index do |school, index| %>
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts-<%= index %>" aria-expanded="false" aria-controls="collapseLayouts-<%= index %>">
+        <div class="sb-nav-link-icon"><i data-feather="home"></i></div>
+        <%= school.name %>
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+      </a>
+      <div class="collapse show" id="collapseLayouts-<%= index %>" data-parent="#accordionSidenav">
+          <nav class="sb-sidenav-menu-nested nav accordion" id="accordionSidenavLayout">
+            <% school.courses.where(user_id: current_user.id).each do |course| %>
+              <%= link_to course_path(course), class: 'nav-link' do %>
+              <% icon_type = course.class_type == 'Speaking' ? 'message-circle' : 'edit-2' %>
+                    <div class="sb-nav-link-icon"><i data-feather=<%= icon_type %>></i></div><%= course.name %>                  
+                    <% unless course.course_periods.empty? %>
+                       <% course.course_periods.ordered.first(2).each do |course_period| %>
+                        <% course_period_string = "#{course_period.day} #{course_period.period.period_number.to_s}" %>
+                         <span class="badge badge-light d-flex align-items-center ml-2" style='border: #e1e1e0 solid 1px; color: grey; font-weight: 100; background: transparent;'>
+                        <%= course_period_string %></span>
+                       <% end %>
+                    <% end %>
+              <% end %>
+            <% end %>
+          </nav>
+      </div>
+    <% end %>
+
+    <% else %>
+    <span class='pl-4'>No courses yet... 😿</span>
+    
+  <% end %>
+              
