@@ -3,6 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
   has_one_attached :photo
   has_many :courses, dependent: :destroy
   validates :given_name, presence: true
@@ -22,5 +23,4 @@ class User < ApplicationRecord
   def full_name
     "#{given_name} #{family_name}"
   end
-
 end

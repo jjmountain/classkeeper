@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  faculty: one
+  start_time: 2020-03-20 11:47:01
+  minutes: 1
+  period_number: 1
+
+two:
+  faculty: two
+  start_time: 2020-03-20 11:47:01
+  minutes: 1
+  period_number: 1

@@ -2,8 +2,8 @@ class Student < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable
-  # mount_uploader :photo, PhotoUploader
+         :recoverable, :rememberable, :validatable
+
   has_one_attached :photo
   validates :student_number, presence: true
   validates :given_name, presence: true
@@ -31,7 +31,7 @@ class Student < ApplicationRecord
     Lesson.joins(course: [ { enrollments: :student } ]).where(enrollments: { student_id: id })
   end
 
- 
+
   def self.online
     ids = ActionCable.server.pubsub.redis_connection_for_subscriptions.smembers "online"
     where(id: ids)

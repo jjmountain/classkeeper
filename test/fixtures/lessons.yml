@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_schedule: one
+  course_period: one
+  date: 2020-03-20
+  week: 1
+  complete: false
+  holiday: false
+
+two:
+  course_schedule: two
+  course_period: two
+  date: 2020-03-20
+  week: 1
+  complete: false
+  holiday: false
