@@ -87,10 +87,10 @@
   </ul>
     </div>
   <% else %>
-
-
-<%= link_to new_student_session_path, class: 'float-right' do %> <button class='btn btn-outline-primary' style='position: fixed; right: 1.8rem; top: 0.8rem;'>Log In </button><% end %>
-
+<div style='position: absolute; right: 1.8rem; top: 0.8rem;'>
+  <%= link_to new_student_registration_path do %> <button class='btn btn-outline-primary btn-sm' >Sign Up </button><% end %>
+  <%= link_to new_student_session_path, class: 'ml-2' do %> <button class='btn btn-outline-primary btn-sm'>Log In </button><% end %>
+</div>
   <% end %>
 </nav>
 

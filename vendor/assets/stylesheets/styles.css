@@ -6162,7 +6162,7 @@ a.badge-pink:focus, a.badge-pink.focus {
 
 .alert {
   padding: 1.25rem 1.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   border: 1px solid transparent;
   border-radius: 0.25rem;
 }
@@ -6177,6 +6177,9 @@ a.badge-pink:focus, a.badge-pink.focus {
 
 .alert-dismissible {
   padding-right: 4rem;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 }
 .alert-dismissible .close {
   position: absolute;

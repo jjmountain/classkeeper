@@ -11,6 +11,12 @@ class Student < ApplicationRecord
   has_many :attendances
   has_many :enrollments, dependent: :destroy
   has_many :courses, through: :enrollments
+  before_save :capitalize_names
+
+  def capitalize_names
+    given_name.capitalize!
+    family_name.capitalize!
+  end
 
   def full_name
     "#{given_name} #{family_name}"

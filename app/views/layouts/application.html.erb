@@ -10,17 +10,14 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
-
    <% body_class = member_signed_in? ? 'sb-nav-fixed' : '' %> 
     <body class=<%= body_class %>>
         <%= render 'layouts/navigations/top_navbar' %>
-        <%= render 'shared/flashes' unless member_signed_in? %>
         <div id="layoutSidenav">
           <%= render 'layouts/navigations/sidenav' if member_signed_in? %>
           <div id="layoutSidenav_content">
-            <%= render 'shared/flashes' if member_signed_in? %>
+            <%= render 'shared/flashes' %>
             <%= yield %>
           <%= render 'layouts/footer' %>
           </div>

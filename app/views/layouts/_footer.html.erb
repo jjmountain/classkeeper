@@ -1,11 +1,14 @@
-<footer class="sb-footer py-4 mt-auto sb-footer-light">
+<% footer_color_class = devise_controller? ? 'bg-primary' : 'sb-footer-light ' %>
+<% footer_text_color = devise_controller? ? 'white' : '' %>
+
+<footer class="sb-footer py-4 mt-auto <%= footer_color_class %>">
   <div class="container-fluid">
-      <div class="d-flex align-items-center justify-content-between small">
+      <div class="d-flex align-items-center justify-content-between small" style='color: <%= footer_text_color %>;'>
           <div>Copyright &copy; Classkeeper 2019</div>
           <div>
-              <a href="#">Privacy Policy</a>
+              <a href="#" style='color: <%= footer_text_color %>;'>Privacy Policy</a>
               &middot;
-              <a href="#">Terms &amp; Conditions</a>
+              <a href="#" style='color: <%= footer_text_color %>;'>Terms &amp; Conditions</a>
           </div>
       </div>
   </div>
