@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   # authenticate for either a user or a student
   before_action :authenticate!
-  before_action :authenticate_member!
 
   def authenticate!
     :authenticate_user! || :authenticate_student!
@@ -57,6 +56,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(scope)
     # return the path based on scope
+    root_path
   end
 
   # Pundit config

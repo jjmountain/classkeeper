@@ -63,7 +63,7 @@
       <li class="nav-item dropdown no-caret mr-3 sb-dropdown-user">
           <a class="btn sb-btn-icon sb-btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <% if current_member.photo.attached? %>
-            <%= cl_image_tag(current_member.photo.key, width: 40, :gravity=>"face", :default_image=> 'default_avatar.png') %></a>
+            <%= cl_image_tag(current_member.photo.key, width: 40, gravity: "face", default_image: 'default_avatar.png') %></a>
           <% else %>
             <%= cl_image_tag('default_avatar.png', width: 40, :gravity=>"face") %></a>
           <% end %>
@@ -88,8 +88,8 @@
     </div>
   <% else %>
 <div style='position: absolute; right: 1.8rem; top: 0.8rem;'>
-  <%= link_to new_student_registration_path do %> <button class='btn btn-outline-primary btn-sm' >Sign Up </button><% end %>
-  <%= link_to new_student_session_path, class: 'ml-2' do %> <button class='btn btn-outline-primary btn-sm'>Log In </button><% end %>
+  <%= link_to new_student_registration_path, class: 'btn btn-outline-primary btn-sm' do %>Sign Up<% end %>
+  <%= link_to new_student_session_path, class: 'ml-2 btn btn-primary btn-sm' do %>Log In<% end %>
 </div>
   <% end %>
 </nav>
