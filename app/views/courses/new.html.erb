@@ -1,0 +1,11 @@
+
+<main>
+  <%= render partial: 'shared/page_header', locals: { title: 'New Course', feather_icon: 'plus' } %>
+  <div class="container-fluid mt-n10">
+    <div class="card">
+      <div class="card-body">
+        <%= render partial: 'course_form', locals: { course: @course } %>
+      </div>
+    </div>
+  </div>
+</main>

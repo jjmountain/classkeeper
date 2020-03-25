@@ -46,4 +46,8 @@ class ApplicationPolicy
       scope.all
     end
   end
+
+  def user_is_owner_of_record?
+    user == record.user
+  end
 end

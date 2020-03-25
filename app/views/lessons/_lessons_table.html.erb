@@ -1,0 +1,24 @@
+<table id='dttb' class='table table-hover'>
+  <thead>
+    <tr>
+      <th>Week</th>
+      <th>Date</th>
+      <th>Time</th>
+      <th>Activities</th>
+      <th>Homework</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <% lessons.each do | lesson | %>
+      <tr>
+        <td><%= lesson.week %></td>
+        <td><%= lesson.date_with_day(lesson.date) %></td>
+        <td><%= lesson.course_period.period.class_time %></td>
+        <td></td>
+        <td></td>
+        <td><%= link_to current_member.class == User ? "Setup" : "Enter", current_member.class == User ? lesson_setup_path(lesson) : lesson_path(lesson) %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

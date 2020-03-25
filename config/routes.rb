@@ -29,9 +29,6 @@ Rails.application.routes.draw do
 
   resources :periods, only: [ :destroy ]
 
-
-  resources :semesters, only: [ :new, :create, :edit, :update]
-
   # devise_for :users, controllers: {
   #   sessions: 'users/sessions',
   #   registrations: 'users/registrations'

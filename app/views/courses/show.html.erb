@@ -1,0 +1,52 @@
+ <main>
+  <%= render layout: 'shared/page_header', locals: { title: @course.name, feather_icon: 'message-square' } do %>
+        <%= link_to edit_course_path(@course), class: 'btn sb-btn-transparent-light sb-btn-icon edit-button' do %> <i data-feather="edit"></i><% end %>
+    <ol class="breadcrumb mt-4 mb-0">
+        <li class="breadcrumb-item"><%= @course.school.name %></li>
+        <li class="breadcrumb-item"><%= @course.faculty.name %></li>
+        <li class="breadcrumb-item active"><%= @course.name %></li>
+    </ol>
+
+  <% end %>
+
+  <div class="container-fluid mt-n10">
+      <div class="card sb-card-collapsable">
+          <a class="card-header" href="#enrolledStudents" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="enrolledStudents">
+            <%= @course.enrollments.count %> Students
+            <div class="sb-card-collapsable-arrow">
+              <i class="fas fa-chevron-down"></i>
+            </div>
+          </a>
+          <% show_students_or_not = @course.enrollments.empty? ? 'show' : '' %>
+          <div class="collapse <%= show_students_or_not %>" id="enrolledStudents">
+            <div class="card-body">
+              <% if @course.enrollments.empty? %>
+                <p>You have no students enrolled in this course 😔</p>
+                <%= link_to course_enrollments_path(@course), class: 'btn btn-primary shadow-sm' do %>Enroll Some Students
+              <% end %>
+
+              <% else %>
+
+              <%= render partial: 'courses/students_table', locals: { enrollments: @enrollments } %>
+
+            <% end %>
+          
+            </div>
+        </div>
+      </div>
+      <div class="card sb-card-collapsable mt-4">
+      <a class="card-header" href="#lessonsCard" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="lessonsCard">
+        <%= @lessons.count %> Lessons
+        <div class="sb-card-collapsable-arrow">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </a>
+      <div class="collapse show" id="lessonsCard">
+        <div class="card-body">
+        <%= render partial: 'lessons/lessons_table', locals: { lessons: @lessons } %>
+        <%= link_to "Add some lessons", new_course_lesson_path(@course), class: 'btn btn-outline-primary' %>
+          
+        </div>
+      </div>
+      </div>
+</main>

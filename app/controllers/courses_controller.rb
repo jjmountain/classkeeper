@@ -18,6 +18,7 @@ class CoursesController < ApplicationController
 
   def create
     @course = Course.new(course_params)
+    authorize @course
     @course.user = current_user 
     if @course.save
       # set the faculty school id because form doesn't update it

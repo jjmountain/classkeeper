@@ -1,0 +1,30 @@
+<%= simple_form_for(course) do |f| %>
+  
+
+<div class='mb-4' data-controller='course-form'>
+    <%= f.association :school, 
+      collection: School.select_value,
+      selected:  course&.faculty&.school&.id,
+      include_blank: true,
+      input_html: { class: 'remote-select', data: { target: 'course-form.courseSchool', action: 'change->course-form#getFaculties' } },
+      wrapper_html: { id: 'original-course-input', data: { target: 'nested-form.school_input' } }      
+    %>
+
+    <%= f.association :faculty,
+      collection: Faculty.select_values(course&.school),
+      selected: course&.faculty&.id,
+      input_html: { id: 'course_faculty', data: { target: 'course-form.courseFaculty' } },
+      wrapper_html: { class: 'mt-3', id: 'origin-faculty-input' }      
+    %>
+
+    </div>
+  <div class="form-row">
+    <%= f.input :name, label: 'Course Name', wrapper_html: { class: 'col' } %>
+    <%= f.input :classroom, label: 'Classroom', wrapper_html: { class: 'col'} %>
+    <%= f.input :class_number, label: 'Class Number', wrapper_html: { class: 'col' } %>
+    <%= f.input :class_type, collection: ['Speaking', 'Writing'], include_blank: true, label: 'Class Focus', wrapper_html: { class: 'col' } %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+  </div>
+<% end %>

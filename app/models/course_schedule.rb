@@ -1,5 +1,6 @@
 class CourseSchedule < ApplicationRecord
   belongs_to :course
+  has_many :lessons
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :course_periods_exist
