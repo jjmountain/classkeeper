@@ -1,9 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  school: one
+bm:
+  name: Business Management
+  school: oberlin
 
-two:
-  name: MyString
-  school: two
+geibun:
+  name: Literature
+  school: oberlin
+
+glomac:
+  name: Global Management
+  school: chuo

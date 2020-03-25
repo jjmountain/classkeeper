@@ -30,6 +30,7 @@ gem 'devise'
 gem 'pundit'
 gem 'jquery-datatables'
 gem 'simple_form'
+gem 'pry-rails'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false

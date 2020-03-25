@@ -25,3 +25,5 @@ import '@fortawesome/fontawesome-free/css/all.css'
 // const imagePath = (name) => images(name, true)
 
 import "controllers"
+
+document.addEventListener('turbolinks:load', () => feather.replace());

@@ -1,12 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  faculty: one
-  user: one
-  class_type: MyString
-  classroom: MyString
-  description: MyString
+chuo_course:
+  name: Academic English
+  faculty: glomac
+  school: chuo
+  user: james
+  class_type: speaking
+  classroom: 302
+  description: A fun course
   archived: false
 
 two:

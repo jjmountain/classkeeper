@@ -22,4 +22,5 @@ class Period < ApplicationRecord
     if CoursePeriod.where.not(period_id: id).empty?
       errors.add(:id, "Period is currently in use in a course")
     end
+  end
 end

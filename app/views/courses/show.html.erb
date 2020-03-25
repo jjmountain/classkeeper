@@ -1,6 +1,6 @@
  <main>
   <%= render layout: 'shared/page_header', locals: { title: @course.name, feather_icon: 'message-square' } do %>
-        <%= link_to edit_course_path(@course), class: 'btn sb-btn-transparent-light sb-btn-icon edit-button' do %> <i data-feather="edit"></i><% end %>
+        <%= link_to edit_course_path(@course), class: 'btn sb-btn-transparent-light sb-btn-icon edit-button', id: 'edit-course' do %> <i data-feather="edit"></i><% end %>
     <ol class="breadcrumb mt-4 mb-0">
         <li class="breadcrumb-item"><%= @course.school.name %></li>
         <li class="breadcrumb-item"><%= @course.faculty.name %></li>

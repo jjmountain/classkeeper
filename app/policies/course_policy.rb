@@ -17,4 +17,12 @@ class CoursePolicy < ApplicationPolicy
     user_is_owner_of_record?
   end
 
+  def edit?
+    show?
+  end
+
+  def update?
+    show?
+  end
+
 end
