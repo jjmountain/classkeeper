@@ -36,6 +36,13 @@ class Student < ApplicationRecord
       student
   end
 
+
+  def self.import(file, course_id)
+    counter = 0
+    
+    counter
+  end
+
   def capitalize_names
     given_name.capitalize!
     family_name.capitalize!
