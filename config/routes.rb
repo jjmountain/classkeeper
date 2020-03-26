@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'lessons/preview', to: 'lessons#preview'
     resources :lessons, only: [ :index, :new, :create ]    
     resources :enrollments, only: [ :index ] do 
-      collection { post :import }
+      collection { post :import, :preview_import }
     end
     resources :lessons_schedules, only: [ :create, :update ]
   end
