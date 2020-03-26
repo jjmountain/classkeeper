@@ -10,6 +10,7 @@ class EnrollmentsController < ApplicationController
 
   def preview_import
     @preview_import = Student::PreviewImport.new(preview_import_params)
+    @results_array = @preview_import.read
     respond_to do |format|
       format.js
     end
