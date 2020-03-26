@@ -25,4 +25,8 @@ class CoursePolicy < ApplicationPolicy
     show?
   end
 
+  def import?
+    user_is_owner_of_record?
+  end
+
 end

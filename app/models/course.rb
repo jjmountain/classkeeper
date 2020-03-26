@@ -11,4 +11,8 @@ class Course < ApplicationRecord
   accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attr| attr['date'].blank? }
   validates :name, presence: true
 
+  def feather_icon
+    class_type == 'Speaking' ? 'message-square' : 'pen-tool'
+  end
+
 end
