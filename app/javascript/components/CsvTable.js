@@ -5,30 +5,69 @@ class CsvTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      full_name: { value: '' },
-      full_name_kanji: { value: '' }, 
-      full_name_furigana: { value: '' }, 
-      given_name: { value: '' }, 
-      given_name_kanji: { value: '' }, 
-      given_name_katakana: { value: '' }, 
-      family_name: { value: '' }, 
-      family_name_kanji: { value: '' }, 
-      family_name_furigana: { value: '' },
-      student_number: { value: '' }, 
-      gender: { value: '' }, 
-      year_enrolled: { value: '' },
-      email: { value: '' }, 
+      studentColumns: [
+        { col_name: 'full_name', col_index: '' },
+        { col_name: 'full_name_kanji', col_index: '' }, 
+        { col_name: 'full_name_furigana', col_index: '' }, 
+        { col_name: 'given_name', col_index: '' }, 
+        { col_name: 'given_name_kanji', col_index: '' }, 
+        { col_name: 'given_name_katakana', col_index: '' }, 
+        { col_name: 'family_name', col_index: '' }, 
+        { col_name: 'family_name_kanji', col_index: '' }, 
+        { col_name: 'family_name_furigana', col_index: '' },
+        { col_name: 'student_number', col_index: '' }, 
+        { col_name: 'gender', col_index: '' }, 
+        { col_name: 'year_enrolled', col_index: '' },
+        { col_name: 'email', col_index: '' }
+      ]
     }
+    this.handleChange = this.handleChange.bind(this);
+    this.findSelectValue = this.findSelectValue.bind(this);
+
   }
+
+
+  // when setting a col index for a col name, find if this index is already on another col_name and reset it to empty string
+  // when updating a col also update to empty string if the first option is selected
 
   handleChange(event) {
-    console.log(event.target.value)
-  }
+    let columnIndex = event.target.name
+    let columnToUpdate = event.target.value
+    this.setState(prevState => ({
+      studentColumns: prevState.studentColumns.map(
+        obj => obj.col_name == columnToUpdate ? { ...obj, col_index: columnIndex } : obj
+      )
+    }))
+    this.setState(prevState => ({
+      studentColumns: prevState.studentColumns.map(
+        obj => obj.col_name != columnToUpdate && obj.col_index == columnIndex ? { ...obj, col_index: '' } : obj
+      )
+    })
+    )
+    // go through all the options and check that their value reflects that in state - if not change it to reflect state
+    let selects = Array.from(document.getElementsByTagName('select'));
 
+    selects.forEach((select, index) => {
+      this.state.studentColumns.forEach((obj) => { 
+        if(obj.col_index == select.name) { 
+          console.log('same value', obj.col_index, select.name, index)
+          selects[index].value = obj.col_name
+        } else {
+          console.log('diff value', obj.col_index, select.name, index)
+        }
+      })
+    })
+  }
 
 
   handleSubmit(e) {
 
+  }
+ 
+  // return the value associated with this column index based on state
+  // check all the objects for a col_index, when found return the col_name
+  findSelectValue(e) {
+    console.log(e)
   }
 
   renderTable() {
@@ -37,8 +76,8 @@ class CsvTable extends React.Component {
       var submitCsv = <button onClick={this.handleSubmit()}></button>
       var tHeader = this.props.csv[0].map((cell, index) => 
       <th>
-        <select name={index} value={this.state.value} form='csv-form' onChange={this.handleChange}>
-          <option value="" disabled selected="selected">Select one or skip:</option>
+        <select name={index} form='csv-form' onChange={this.handleChange} >
+          <option value="" selected="selected" >Select or skip:</option>
           <option value="full_name">Full Name - English</option>
           <option value="full_name_furigana">Full Name - Furigana</option>
           <option value="full_name_kanji">Full Name - Kanji</option>
@@ -67,7 +106,6 @@ class CsvTable extends React.Component {
   }
 
   render () {
-    
     return (
       <div style={{'overflowX': 'auto'}}>
         {this.renderTable()}
