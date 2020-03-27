@@ -1,0 +1,16 @@
+<main>
+  <%= render layout: 'shared/page_header', locals: { title: @course.name, subtitle: 'Edit course', feather_icon: 'edit' } do %>
+    <ol class="breadcrumb mt-4 mb-0">
+        <li class="breadcrumb-item"><%= @course.school.name %></li>
+        <li class="breadcrumb-item"><%= @course.faculty.name %></li>
+        <li class="breadcrumb-item active"><%= @course.name %></li>
+    </ol>
+  <% end %>
+  <div class="container-fluid mt-n10">
+    <div class="card">
+      <div class="card-body">
+        <%= render partial: 'course_form', locals: { course: @course } %>
+      </div>
+    </div>
+  </div>
+</main>

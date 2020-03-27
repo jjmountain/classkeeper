@@ -1,0 +1,24 @@
+<table id='dttb' class='table table-hover'>
+  <thead>
+    <tr>
+      <th>Student number</th>
+　　　　　　　　　<th>Name in Japanese</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Gender</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% enrollments.each do | enrollment | %>
+    <tr>
+      <td><%= enrollment.student.student_number %></td>
+      <td><%= enrollment.student.full_name_kanji %></td>
+      <td><%= enrollment.student.given_name %></td>
+      <td><%= enrollment.student.family_name %></td>
+      <td><%= enrollment.student.gender %></td>
+      <td><%= enrollment.student.email %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
