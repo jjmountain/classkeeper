@@ -11,25 +11,9 @@
           <div class="card-header">Enroll Students</div>
           
           <div class="card-body">
-          <%= react_component('CsvPreview') %>
-          <div id="csv-data">
-            
-          </div>
+ 
           <p><strong>Enrolling students in a course will also create student accounts if they do not already exist.</strong></p>
-            
-            <%= simple_form_for @preview_import, url: preview_import_course_enrollments_path, multipart: true, remote: true do |f| %>
-              <div class="form-group">
-                <%= f.file_field :file %>
-              </div>
-              <div class="form-group">
-                <%= f.input :headers, as: :boolean, label: "Do you have headers?" %>
-              </div>
-              <%= f.hidden_field :course_id, value: params[:course_id] %>
-              <div class="form-group">
-              <%= f.submit "Preview CSV", class: 'btn btn-sm btn-outline-secondary' %>
-              </div>
-
-            <% end %>
+            <%= react_component('CsvPreview') %>
             
             <%= simple_form_for @import, url: import_course_enrollments_path, multipart: true, class: 'form-inline' do |f| %>
             <% if @import.errors.any? %>
