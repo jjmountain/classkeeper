@@ -29,13 +29,13 @@ class CsvPreview extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <CsvTable csv={this.state.file} />
         <CSVReader 
           onDrop={this.onDrop}
           onError={this.onError}
         >
           <span>Drop CSV file here or click to upload.</span>
         </CSVReader>
+        <CsvTable csv={this.state.file} />
       </React.Fragment>
     );
   }
