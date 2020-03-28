@@ -16,13 +16,12 @@ class CsvTable extends React.Component {
         col_name: '',
         email_domain: ''
       },
-      stepsConfirmed: {
-        emails: '',
-        uniqueEmails: '',
+      errors: {
+        emailFormatIncorrect: '',
+        emailsNotUnique: '',
         namesChecked: '',
-        passwords: '',
-        userConfirmed: ''
-      }
+        passwords: ''
+    }
     }
     this.handleChange = this.handleChange.bind(this);
     this.checkForEmail = this.checkForEmail.bind(this);
@@ -44,12 +43,11 @@ class CsvTable extends React.Component {
           col_name: '',
           email_domain: ''
         },
-        stepsConfirmed: {
-          emails: '',
-          uniqueEmails: '',
+        errors: {
+          emailFormatIncorrect: '',
+          emailsNotUnique: '',
           namesChecked: '',
           passwords: '',
-          userConfirmed: ''
         }
       })
       document.querySelectorAll("select[id^='column-']").forEach(select => select.value = '')
@@ -111,7 +109,12 @@ class CsvTable extends React.Component {
     if(this.validateEmail(this.renderExample())) {
       this.checkEmailUniqueness()
     } else {
-      console.log('email invalid')
+      this.setState(prevState => ({
+        errors: {
+          ...prevState.errors,
+          emailFormatIncorrect: true
+        }
+      }))
     }
   }
 
@@ -120,7 +123,7 @@ class CsvTable extends React.Component {
   }
 
   checkEmailUniqueness() {
-    let emailsUnique
+    let emailsNotUnique
     function onlyUnique(value, index, self) { 
       return self.indexOf(value) === index;
   }
@@ -128,17 +131,17 @@ class CsvTable extends React.Component {
       let prefixObj = this.state.studentColumns.find(obj => obj.col_name == this.state.customEmailField.col_name)
       let emailPrefixArr = this.props.csv.map(arr => arr[prefixObj.col_index])
       let uniqueArr = emailPrefixArr.filter(onlyUnique)
-      emailsUnique = uniqueArr.length == emailPrefixArr.length
+      emailsNotUnique = uniqueArr.length != emailPrefixArr.length
     } else {
       let emailObj = this.state.studentColumns.find(obj => obj.col_name == 'email')
       let emailsArr = this.props.csv.map(arr => arr[emailObj.col_index])
       let uniqueArr = emailsArr.filter(onlyUnique)
-      emailsUnique = uniqueArr.length == emailsArr.length
+      emailsNotUnique = uniqueArr.length != emailsArr.length
     }
     this.setState(prevState => ({
-      stepsConfirmed: {
-        ...prevState.stepsConfirmed,
-        uniqueEmails: emailsUnique
+      errors: {
+        ...prevState.errors,
+        emailsNotUnique: emailsNotUnique
       }
     }))
   }
@@ -172,8 +175,18 @@ class CsvTable extends React.Component {
   } 
 
   renderErrors() {
-
-  }
+    if(this.state.showModal) {
+      let errorsDiv = document.createElement('div')
+      if(this.state.errors.emailsNotUnique) {
+        let error = <p className='text-red'>This column cannot be used for the email prefix as some values are the same.</p>
+        errorsDiv.insertAdjacentHTML('beforeend', error)
+      }
+      if(this.state.errors.emailFormatIncorrect) {
+        let error = <p className='text-red'>Email format incorrect.</p>
+        errorsDiv.insertAdjacentHTML('beforeend', error)
+      } console.log(errorsDiv)
+      }
+  } 
 
   renderExample() {
     if (this.usingCustomEmail()) {
@@ -236,7 +249,7 @@ class CsvTable extends React.Component {
     var emailCheckModal = 
       <Modal show={this.state.showModal}>
         <Modal.Header>
-          <Modal.Title>Email not selected</Modal.Title></Modal.Header>
+          <Modal.Title>Confirmation</Modal.Title></Modal.Header>
         <Modal.Body>
           <p><strong>To register or enroll students an email address is required.</strong></p>
           <p>If the first part of the email address is provided in another column (e.g. student number or username) you can complete the email address by entering the remainder of the email from the @ mark in the space below.</p>
