@@ -5,58 +5,51 @@ class CsvTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      studentColumns: [
-        { col_name: 'full_name', col_index: '' },
-        { col_name: 'full_name_kanji', col_index: '' }, 
-        { col_name: 'full_name_furigana', col_index: '' }, 
-        { col_name: 'given_name', col_index: '' }, 
-        { col_name: 'given_name_kanji', col_index: '' }, 
-        { col_name: 'given_name_katakana', col_index: '' }, 
-        { col_name: 'family_name', col_index: '' }, 
-        { col_name: 'family_name_kanji', col_index: '' }, 
-        { col_name: 'family_name_furigana', col_index: '' },
-        { col_name: 'student_number', col_index: '' }, 
-        { col_name: 'gender', col_index: '' }, 
-        { col_name: 'year_enrolled', col_index: '' },
-        { col_name: 'email', col_index: '' }
-      ]
+      studentColumns: []
     }
     this.handleChange = this.handleChange.bind(this);
-    this.findSelectValue = this.findSelectValue.bind(this);
-
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.csv !== prevProps.csv) {
+      var stateObject = this.props.csv[0].map(col => ({ col_name: '' }))
+      this.setState({
+        studentColumns: stateObject
+      })
+    }
+  }
+  
+  // set the state to be an array of objects, each of which contain a col_name attribute
 
   // when setting a col index for a col name, find if this index is already on another col_name and reset it to empty string
   // when updating a col also update to empty string if the first option is selected
 
   handleChange(event) {
-    let columnIndex = event.target.name
-    let columnToUpdate = event.target.value
+    let columnNumberToUpdate = event.target.name
+    let newColumnProperty = event.target.value
+
     this.setState(prevState => ({
-      studentColumns: prevState.studentColumns.map(
-        obj => obj.col_name == columnToUpdate ? { ...obj, col_index: columnIndex } : obj
+      studentColumns: prevState.studentColumns.map( 
+        (obj, index) => {
+          return index == columnNumberToUpdate ? { ...obj, col_name: newColumnProperty } : obj 
+        }
       )
     }))
+
+    // look through the state and see if a select has the same property and is not the column number to update - if so reset it
+    var prevIndex = 'sexy'
     this.setState(prevState => ({
       studentColumns: prevState.studentColumns.map(
-        obj => obj.col_name != columnToUpdate && obj.col_index == columnIndex ? { ...obj, col_index: '' } : obj
+        (obj, index) => { 
+          if(index != columnNumberToUpdate && obj.col_name == newColumnProperty) {
+            document.querySelector(`#column-${index}`).value = ''
+          }
+          return index != columnNumberToUpdate && obj.col_name == newColumnProperty ? { ...obj, col_name: '' } : obj 
+        }
       )
     })
     )
-    // go through all the options and check that their value reflects that in state - if not change it to reflect state
-    let selects = Array.from(document.getElementsByTagName('select'));
-
-    selects.forEach((select, index) => {
-      this.state.studentColumns.forEach((obj) => { 
-        if(obj.col_index == select.name) { 
-          console.log('same value', obj.col_index, select.name, index)
-          selects[index].value = obj.col_name
-        } else {
-          console.log('diff value', obj.col_index, select.name, index)
-        }
-      })
-    })
+    // finally look through all the selects and find the one that has the newColumn property but is not column to update and reset it
   }
 
 
@@ -64,19 +57,13 @@ class CsvTable extends React.Component {
 
   }
  
-  // return the value associated with this column index based on state
-  // check all the objects for a col_index, when found return the col_name
-  findSelectValue(e) {
-    console.log(e)
-  }
-
   renderTable() {
     let csvTable
-    if (this.props.csv.length) {
+    if (this.state.studentColumns.length) {
       var submitCsv = <button onClick={this.handleSubmit()}></button>
       var tHeader = this.props.csv[0].map((cell, index) => 
       <th>
-        <select name={index} form='csv-form' onChange={this.handleChange} >
+        <select name={index} id={`column-${index}`} form='csv-form' onChange={this.handleChange} >
           <option value="" selected="selected" >Select or skip:</option>
           <option value="full_name">Full Name - English</option>
           <option value="full_name_furigana">Full Name - Furigana</option>
