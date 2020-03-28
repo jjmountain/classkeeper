@@ -107,6 +107,12 @@ class CsvTable extends React.Component {
 
   validateCustomEmail() {
     if(this.validateEmail(this.renderExample())) {
+      this.setState(prevState => ({
+        errors: {
+          ...prevState.errors,
+          emailFormatIncorrect: false
+        }
+      }))
       this.checkEmailUniqueness()
     } else {
       this.setState(prevState => ({
@@ -176,16 +182,16 @@ class CsvTable extends React.Component {
 
   renderErrors() {
     if(this.state.showModal) {
-      let errorsDiv = document.createElement('div')
+      let errorsArr = []
       if(this.state.errors.emailsNotUnique) {
-        let error = <p className='text-red'>This column cannot be used for the email prefix as some values are the same.</p>
-        errorsDiv.insertAdjacentHTML('beforeend', error)
+        errorsArr.push('Email addresses must all be unique')
       }
       if(this.state.errors.emailFormatIncorrect) {
-        let error = <p className='text-red'>Email format incorrect.</p>
-        errorsDiv.insertAdjacentHTML('beforeend', error)
-      } console.log(errorsDiv)
-      }
+        errorsArr.push('An email address in the incorrect format was found')
+      } 
+      return ( 
+        <ul className='alert list-group'>{errorsArr.map(str => <li className='text-red list-group-item'>{str}</li>)}</ul> 
+        )}
   } 
 
   renderExample() {
