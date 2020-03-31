@@ -12,23 +12,9 @@
           
           <div class="card-body">
  
-          <p><strong>Enrolling students in a course will also create student accounts if they do not already exist.</strong></p>
+          <p>Enrolling students in a course will also create student accounts if they do not already exist.</p>
             <%= react_component('CsvPreview') %>
             
-            <%= simple_form_for @import, url: import_course_enrollments_path, multipart: true, class: 'form-inline' do |f| %>
-            <% if @import.errors.any? %>
-              <div class="alert alert-danger mb-3">
-                <% @import.errors.full_messages.each do |msg| %>
-                  <div><%= msg %></div>
-                <% end %>
-              </div>
-            <% end %>
-            <div class="form-group mt-4">
-              <%= f.file_field :file %>
-              <%= f.hidden_field :course_id, value: params[:course_id] %>
-              <%= f.submit "Import CSV", class: 'btn btn-info' %>
-            </div>
-            <% end %>
           </div>
       </div>
   </div>

@@ -88,7 +88,7 @@ class CsvTable extends React.Component {
 
   checkForEmail(e) {
     // check state for email col_name inside each object
-    // get an array of the col_names preset
+    // get an array of the col_names present
     var colsPresent = this.state.studentColumns.map(col => col.col_name)
     if(colsPresent.some(el => el == 'email')) {
       
@@ -98,6 +98,12 @@ class CsvTable extends React.Component {
       })
      
     }
+  }
+
+  // returns the column index in the csv file that the user has marked it as appearing at
+
+  findColIndex(col_name) {
+    return this.state.studentColumns.find(obj => obj.col_name == col_name).col_index
   }
 
   validateEmail(email) {
@@ -180,6 +186,26 @@ class CsvTable extends React.Component {
     })
   } 
 
+  renderCustomEmail() {
+    var emailFirstFieldOptions = this.state.studentColumns.map(col => col.col_name).filter(col => col != '').map(option => {
+      return <option value={option}>{option.replace(/_/g, ' ')}</option>
+    })
+    return(
+      <>
+        <p><strong>To register or enroll students an email address is required.</strong></p>
+        <p>If the first part of the email address is provided in another column (e.g. student number or username) you can complete the email address by entering the remainder of the email from the @ mark in the space below.</p>
+        <select name="email_first_field" onChange={this.handleEmailPrefixChange}>
+          <option defaultValue="" value=''>Choose below:</option>
+          {emailFirstFieldOptions}
+        </select>
+        <input type="text" onChange={this.handleEmailTextChange} value={this.state.customEmailField.email_domain} className='ml-2'/>
+        <p className='mt-2'>Example:</p>
+        {this.renderExample()}
+        {this.renderErrors()}
+      </>
+    )
+  }
+
   renderErrors() {
     if(this.state.showModal) {
       let errorsArr = []
@@ -206,6 +232,24 @@ class CsvTable extends React.Component {
       completeExample += this.state.customEmailField.email_domain
       return completeExample
     }
+  }
+
+  renderFullNameCheck() {
+    let fullNames = this.state.studentColumns.filter(obj => obj.col_name.match(/full_name/))
+    let fullNameKeys = fullNames.map(obj => obj.col_name)
+
+    // which column is each full name stored in? look in state to find out
+    let elements = fullNames.map(name => name.col_name.replace(/_/g, ' ')).map((name, index) => {
+      <span>{name} - {this.props.csv[1].findColIndex(fullNameKeys[index])}</span>
+    })
+
+    console.log(fullNames)
+    return(
+      <>
+       <strong><p>Tell us about the format of the names.</p></strong>
+       <p>Classkeeper keeps family names and given names separate to improve the organization of your classes.</p>
+      </>
+    )
   }
  
   renderTable() {
@@ -248,25 +292,13 @@ class CsvTable extends React.Component {
   }
 
   render () {
-    var emailFirstFieldOptions = this.state.studentColumns.map(col => col.col_name).filter(col => col != '').map(option => {
-      return <option value={option}>{option.replace(/_/g, ' ')}</option>
-    })
-
     var emailCheckModal = 
       <Modal show={this.state.showModal}>
         <Modal.Header>
-          <Modal.Title>Confirmation</Modal.Title></Modal.Header>
+          <Modal.Title>Please Confirm These Items</Modal.Title></Modal.Header>
         <Modal.Body>
-          <p><strong>To register or enroll students an email address is required.</strong></p>
-          <p>If the first part of the email address is provided in another column (e.g. student number or username) you can complete the email address by entering the remainder of the email from the @ mark in the space below.</p>
-          <select name="email_first_field" onChange={this.handleEmailPrefixChange}>
-            <option defaultValue="" value=''>Choose below:</option>
-            {emailFirstFieldOptions}
-          </select>
-          <input type="text" onChange={this.handleEmailTextChange} value={this.state.customEmailField.email_domain} className='ml-2'/>
-          <p className='mt-2'>Example:</p>
-          {this.renderExample()}
-          {this.renderErrors()}
+          {this.renderCustomEmail()}
+          {this.state.studentColumns.some(obj => obj.col_name.match(/full_name/)) && this.renderFullNameCheck()}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.hideModal}>Cancel</Button>

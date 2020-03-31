@@ -4,6 +4,7 @@ class CoursesTest < ApplicationSystemTestCase
   setup do
     @course = courses(:chuo_course)
   end
+  
   test "faculties select is populated with faculties when clicking on a school" do
     sign_in users(:james)
     visit new_course_url
